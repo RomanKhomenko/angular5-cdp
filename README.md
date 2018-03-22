@@ -1,5 +1,5 @@
-# Changelog
-[Changelog](changelog.md)
+# CHANGELOG
+[CHANGELOG](CHANGELOG.md)
 
 # Angular5Cdp
 
