@@ -1,8 +1,0 @@
-<app-cart 
-    [cartProducts] = "cartProducts"
-    (removeComplete) = "removeFromCart($event)"
-></app-cart>
-<app-product-list
-    [availableProducts] = "availableProducts"
-    (buyComplete)="moveToCart($event)"
-></app-product-list>

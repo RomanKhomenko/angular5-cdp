@@ -1,0 +1,16 @@
+<div class="clearfix">
+  <div class="pull-left">
+      <p class="list-group-item-heading">
+        Category: <a><small>{{product.category.toString()}}</small></a>;&nbsp;&nbsp;
+        Name: <a><small>{{product.name}}</small></a>
+      </p>
+      <p class="list-group-item-text">Description: {{product.description}}</p>
+      <p>
+        Price: <small>{{product.price | currency}}</small>;&nbsp;&nbsp;
+        Available: <small>{{product.count}}</small>
+      </p>
+  </div>
+  <div class="pull-right">
+    <button class="btn btn-primary" type="button" (click)="onBuy($event)">Buy</button>
+  </div>
+</div>
