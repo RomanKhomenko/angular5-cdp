@@ -1,3 +1,36 @@
+<a name="1.0.2"></a>
+## 1.0.2 (2018-03-26)
+
+### Added
+- CoreModule. Contains:
+	1. Header component
+	2. Http Service
+	3. Service Models
+	
+- SharedModule. Contains:
+	1. Directives
+	2. Common Models
+	
+- ProductFeatureModule. Contains:
+	1. cart component
+	2. products component
+	3. productservice
+	4. cartservice
+	5. communicationservice
+
+### Changed
+- Cart-item component. Used directives: ngStyle, ngClass, events.
+
+### Removed
+- x-shared folder. Moved to Core and Shared Module
+- product-cart communication component. Replaced with communication service
+
+### Focus on
+Please find cart-item.component.ng-problem.html. NgModel directives cause unknown issue
+
+### Useful links
+-[homework](homework/HomeTask_2.txt)
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2018-03-22)
 
