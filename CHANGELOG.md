@@ -8,8 +8,6 @@
 - [product-http](https://github.com/RomanKhomenko/angular5-cdp/issues/4)
 - [ngModel](https://github.com/RomanKhomenko/angular5-cdp/issues/4)
 
-- Update outdated unreleased diff link.
-
 <a name="1.0.2"></a>
 ## 1.0.2 (2018-03-26)
 
