@@ -1,3 +1,15 @@
+<a name="1.0.3"></a>
+## 1.0.3 (2018-03-27)
+
+### Fixed
+- [components](https://github.com/RomanKhomenko/angular5-cdp/issues/1)
+- [app.module](https://github.com/RomanKhomenko/angular5-cdp/issues/2)
+- [shared.module](https://github.com/RomanKhomenko/angular5-cdp/issues/3)
+- [product-http](https://github.com/RomanKhomenko/angular5-cdp/issues/4)
+- [ngModel](https://github.com/RomanKhomenko/angular5-cdp/issues/4)
+
+- Update outdated unreleased diff link.
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2018-03-26)
 
