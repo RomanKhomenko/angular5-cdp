@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
-
+import { NgModule  } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CoreModule } from './components/core/core.module';
-import { ProductsFeatureModule } from './components/products-feature/products-feature.module';
+import { CoreModule } from './core/core.module';
+import { ProductsFeatureModule } from './products-feature/products-feature.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +16,6 @@ import { ProductsFeatureModule } from './components/products-feature/products-fe
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: []
 })
 export class AppModule { }
