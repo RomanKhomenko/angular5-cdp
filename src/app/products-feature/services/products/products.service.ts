@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as _ from 'lodash';
 
-import { ProductsHttpService } from '../../../core/services/products/products-http.service';
+import { ProductsHttpService } from '../../../core/services/products-http/products-http.service';
 import { ProductStatus, Product } from '../../../core/models';
 import { ProductItemModel } from '../../models/product-item.model';
 import { ProductCommunicationService } from '../communication/product-communication.service';
