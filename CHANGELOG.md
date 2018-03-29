@@ -1,3 +1,30 @@
+<a name="1.3.0"></a>
+## 1.0.3 (2018-03-27)
+
+### Added
+- data.json file to assets folder
+- demo-task-3 to show different DI
+- services:
+	1. GeneratorService with token
+	2. ConfigOptionService with token
+	3. LocalStorageService
+	4. Constants service
+	5. services index.ts
+
+### Changed
+- ProductHttpService works with HttpClient
+- ProductService works with promise
+- ProductsComponent's template uses Async pipe
+- CartService extend logic form managin products
+- CartComponents's template show sub total and all total values
+	
+### Notes
+Point 8 were implemented in highlight directives in the previos homework.
+It has already used Renderer2 and and @Input
+
+### Useful links
+-[homework](homework/HomeTask_3.txt)
+
 <a name="1.0.3"></a>
 ## 1.0.3 (2018-03-27)
 
