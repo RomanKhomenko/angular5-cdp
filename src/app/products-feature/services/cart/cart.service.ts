@@ -2,51 +2,42 @@ import { Injectable } from '@angular/core';
 
 import * as _ from 'lodash';
 
-import { ProductsHttpService } from '../../../core/services/products-http/products-http.service';
-import { ProductStatus, Product } from '../../../core/models';
-import { ProductItemModel } from '../../models/product-item.model';
 import { ProductCommunicationService } from '../communication/product-communication.service';
+import { ProductItem } from '../../models/product-item.model';
 
 @Injectable()
 export class CartService {
-  constructor(
-    private productsHttpService: ProductsHttpService,
-    private productCommunicationService: ProductCommunicationService
-  ) { }
+  products: ProductItem[] = [];
 
-  getProducts() {
-    const items = this.productsHttpService.getAll();
-    const inCartItems = items.filter(item => item.status === ProductStatus.InCart);
-    const grouped = this.groupBy(inCartItems, item => item.name);
+  constructor(private productCommunicationService: ProductCommunicationService) {
+    this.reset();
+    this.subscribtion();
+  }
 
-    grouped.map(item => {
-      item.totalAmount = items.filter(i => i.name === item.name).length;
+  removeAll() {
+    this.reset();
+  }
+
+  remove(product: ProductItem) {
+    this.products = this.products.filter(item => item.name !== product.name);
+  }
+
+  private getByName(productName: string): ProductItem {
+    return this.products.find((item) => item.name === productName);
+  }
+
+  private subscribtion(): void {
+    this.productCommunicationService.channel$.subscribe((product) => {
+      const existed = this.getByName(product.name);
+      if (existed) {
+        existed.clickedCount += product.clickedCount;
+      } else {
+        this.products.push(product);
+      }
     });
-    return grouped;
   }
 
-  moveToStok(product: ProductItemModel) {
- /*    const productDto = this.productsHttpService.getByName(productName, (prd) => prd.status === ProductStatus.InCart);
-    productDto.status = ProductStatus.InStock;
-
-    if (productDto) {
-      this.productsHttpService.updateProduct(productDto);
-      this.productCommunicationService.notify();
-    } */
+  private reset(): void {
+    this.products = [];
   }
-
-  private groupBy(list: Array<Product>, keyGetter: (product: Product) => any) {
-    const map = new Map<string, ProductItemModel>();
-    list.forEach((item) => {
-        const key = keyGetter(item);
-        const productItem = map.get(key);
-        if (!productItem) {
-            map.set(key, new ProductItemModel(item.name, item.description, item.price, item.category, 1));
-        } else {
-          productItem.count++;
-        }
-    });
-    return Array.from(map).map(item => item[1]);
-  }
-
 }

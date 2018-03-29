@@ -1,13 +1,19 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h5>Number of items in cart: <span class="badge">{{products.length}}</span></h5>
+    <h5 class="clearfix">
+      <span class="pull-left">
+          Number of items in cart: 
+          <span class="badge">{{cartService.products.length}}</span>
+      </span>
+      <a *ngIf="cartService.products.length !== 0" class="pull-right" (click)="removeAll()">remove all</a>
+    </h5>
   </div>
   <div class="panel-body">
-    <span *ngIf="products.length===0; else cartElse">There are no items</span>
+    <span *ngIf="cartService.products.length === 0; else cartElse">There are no items</span>
     <ng-template #cartElse>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let product of products">
-              <app-cart-item                
+            <li class="list-group-item" *ngFor="let product of cartService.products">
+              <app-cart-item   
                 [product]="product"
                 (remove)="fromProductChild($event)"
               ></app-cart-item>
@@ -15,7 +21,7 @@
           </ul>
     </ng-template>    
   </div>
-  <div class="panel-footer">
-      <h5>Total Count: {{getTotalPrice() | currency}}</h5>
+  <div class="panel-footer text-right">
+      <h5 [style.font-size.px]="18" [style.font-weight]="'bold'">All Total: {{getTotalPrice() | currency}}</h5>
   </div>
 </div>

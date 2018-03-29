@@ -1,16 +1,22 @@
 <div class="clearfix">
   <div class="pull-left">
       <p class="list-group-item-heading">
-        Category: <a><small>{{product.category.toString()}}</small></a>;&nbsp;&nbsp;
-        Name: <a><small>{{product.name}}</small></a>
+        Name: <a>{{product.name}}</a>
       </p>
-      <p class="list-group-item-text">Description: {{product.description}}</p>
-      <p>
-        Price: <small>{{product.price | currency}}</small>;&nbsp;&nbsp;
-        Available: <small>{{product.count}}</small>
+      <p class="list-group-item-text">
+        Description: {{product.description}}
+      </p>
+      <p class="list-group-item-bottom">
+        <span class="bold">Price: {{product.price | currency}};</span>&nbsp;&nbsp;
+        <span class="red">(only {{product.count}} pieces available)</span>        
       </p>
   </div>
   <div class="pull-right">
-    <button class="btn btn-primary" type="button" (click)="onBuy($event)">Buy</button>
+    <div class="input-group">
+      <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" (click)="onBuy($event)" #buyButton>Add to Cart</button>
+      </span>
+      <input type="number" class="form-control" min="0" [max]="product.count" [(ngModel)]="product.clickedCount">
+    </div>
   </div>
 </div>

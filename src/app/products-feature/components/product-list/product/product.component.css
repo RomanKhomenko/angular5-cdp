@@ -1,0 +1,29 @@
+.list-group-item-heading {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.list-group-item-text {
+    font-style: italic;
+}
+
+.list-group-item-bottom {
+    font-size: 12px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.red {
+    color: #C30;
+}
+
+.input-group {
+    width: min-content;
+}
+
+.input-group .form-control {
+    width: 55px;
+    padding-right: 5px;
+}

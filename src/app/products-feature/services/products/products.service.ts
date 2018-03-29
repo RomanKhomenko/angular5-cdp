@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import * as _ from 'lodash';
 
-import { ProductsHttpService } from '../../../core/services/products-http/products-http.service';
-import { ProductStatus, Product } from '../../../core/models';
-import { ProductItemModel } from '../../models/product-item.model';
+import { ProductsHttpService } from '../../../core/services/index';
+import { Product, ProductInterface } from '../../../core/models';
 import { ProductCommunicationService } from '../communication/product-communication.service';
+import { ProductItem } from '../../models/product-item.model';
 
 @Injectable()
 export class ProductsService {
@@ -14,35 +14,27 @@ export class ProductsService {
     private productCommunicationService: ProductCommunicationService
   ) { }
 
-  getProducts() {
-    const items = this.productsHttpService
-      .getAll()
-      .filter(item => item.status === ProductStatus.InStock);
-
-    return this.groupBy(items, item => item.name);
-  }
-
-  moveToCart(productName: string) {
-    const productDto = this.productsHttpService.getByName(productName, (prd) => prd.status === ProductStatus.InStock);
-    productDto.status = ProductStatus.InCart;
-
-    if (productDto) {
-      this.productsHttpService.updateProduct(productDto);
-      this.productCommunicationService.notify();
-    }
-  }
-
-  private groupBy(list: Array<Product>, keyGetter: (product: Product) => any) {
-    const map = new Map<string, ProductItemModel>();
-    list.forEach((item) => {
-        const key = keyGetter(item);
-        const productItem = map.get(key);
-        if (!productItem) {
-            map.set(key, new ProductItemModel(item.name, item.description, item.price, item.category, 1));
-        } else {
-          productItem.count++;
-        }
+  getProducts(): Promise<ProductItem[]> {
+    return new Promise<ProductItem[]>((resolve, reject) => {
+      this.productsHttpService.get()
+        .then(
+          (resp) => resolve(resp.map(this.mapTo)),
+          (error) => reject(new ProductItem[0]),
+        );
     });
-    return Array.from(map).map(item => item[1]);
+  }
+
+  moveToCart(product: ProductItem) {
+    this.productCommunicationService.notify({...product});
+  }
+
+  private mapTo(productDto: ProductInterface): ProductItem {
+    return new ProductItem(
+      productDto.id,
+      productDto.name,
+      productDto.description,
+      productDto.price,
+      productDto.count
+    );
   }
 }

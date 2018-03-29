@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
 import { ProductsService } from '../../services/products/products.service';
-import { ProductItemModel } from '../../models/product-item.model';
 import { ProductCommunicationService } from '../../services/communication/product-communication.service';
+import { ProductItem } from '../../models/product-item.model';
 
 @Component({
   selector: 'app-product-list',
@@ -11,26 +11,25 @@ import { ProductCommunicationService } from '../../services/communication/produc
 })
 
 export class ProductListComponent implements OnInit {
-  products: Array<ProductItemModel>;
+  resolveFn: Function|null = null;
+
+  public products: Promise<ProductItem[]> = new Promise<ProductItem[]>(resolve => this.resolveFn = resolve);
 
   constructor(
-    private productService: ProductsService,
+    public productService: ProductsService,
     private communicationService: ProductCommunicationService
-  ) { }
+  ) {  }
 
   ngOnInit(): void {
-    this.loadProducts();
-
-    this.communicationService.channel$.subscribe(
-      data => this.loadProducts()
-    );
+    this.getProducts();
   }
 
-  loadProducts() {
-    this.products = this.productService.getProducts();
+  getProducts() {
+    this.productService.getProducts()
+      .then(resp => this.resolveFn(resp));
   }
 
-  move(product: ProductItemModel) {
-    this.productService.moveToCart(product.name);
+  move(product: ProductItem) {
+    this.productService.moveToCart(product);
   }
 }

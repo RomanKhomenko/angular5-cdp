@@ -1,18 +1,14 @@
-import { ProductCategory } from './product-category.model';
-
-import { ProductStatus } from './product-status.model';
 import { Guid } from '../../shared/models/guid';
-import { Product } from './product';
+import { ProductInterface } from './product.interface';
 
-export class ProductModel implements Product {
+export class Product implements ProductInterface {
     public id: string;
 
     constructor(
         public name: string,
         public description: string = '',
         public price: number,
-        public category: ProductCategory,
-        public status: ProductStatus
+        public count: number,
     ) {
         this.id = Guid.newGuid();
     }

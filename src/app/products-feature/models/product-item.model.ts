@@ -1,13 +1,15 @@
-import { ProductCategory } from '../../core/models';
+import { ProductInterface } from '../../core/models';
 
-export class ProductItemModel {
-    public totalAmount: number;
+export class ProductItem implements ProductInterface {
+    public clickedCount: number;
 
     constructor(
+        public id: string,
         public name: string,
         public description: string = '',
         public price: number,
-        public category: ProductCategory,
-        public count: number
-    ) { }
+        public count: number,
+    ) {
+        this.clickedCount = 1;
+    }
 }

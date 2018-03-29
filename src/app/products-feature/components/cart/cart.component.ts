@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
-import { ProductItemModel } from '../../models/product-item.model';
 import { ProductCommunicationService } from '../../services/communication/product-communication.service';
 import { CartService } from '../../services/cart/cart.service';
+import { ProductItem } from '../../models/product-item.model';
 
 @Component({
   selector: 'app-cart',
@@ -10,33 +10,27 @@ import { CartService } from '../../services/cart/cart.service';
   styleUrls: ['./cart.component.css']
 })
 
-export class CartComponent implements OnInit {
-  products: Array<ProductItemModel>;
+export class CartComponent {
+  @ViewChildren('cartItem')
+  cartItems: QueryList<CartComponent>;
 
-  constructor(
-    private cartService: CartService,
-    private communicationService: ProductCommunicationService
-  ) { }
+  products: ProductItem[] = [];
 
-  ngOnInit(): void {
-    this.loadProducts();
+  constructor(public cartService: CartService) { }
 
-    this.communicationService.channel$.subscribe(
-      data => this.loadProducts()
-    );
+  fromProductChild(product: ProductItem) {
+    this.cartService.remove(product);
   }
 
-  loadProducts() {
-    this.products = this.cartService.getProducts();
-  }
-
-  fromProductChild(product: ProductItemModel) {
-    this.cartService.moveToStok(product);
+  removeAll() {
+    this.cartService.removeAll();
   }
 
   getTotalPrice() {
+/*     let total = 0;
+    this.cartItems.forEach(item => total += item.getTotalPrice()); */
     let total = 0;
-    this.products.forEach(product => total += product.price * product.count);
+    this.cartService.products.forEach(product => total += product.price * product.clickedCount);
     return total;
   }
 }
