@@ -1,5 +1,5 @@
 <a name="1.3.0"></a>
-## 1.0.3 (2018-03-27)
+## 1.3.0 (2018-03-29)
 
 ### Added
 - data.json file to assets folder
