@@ -1,3 +1,21 @@
+<a name="1.4.0"></a>
+## 1.4.0 (2018-03-29)
+
+### Added
+- OrderByPipe pipe
+
+### Notes
+Pipes:
+- async pipe is used in the ProductsComponent
+- orderBy pipe. Is used in the CartComponent
+- i18nSelect pipe is used in the CartComponent
+- uppercase pipes are used in the CartItemComponent, ProductComponent
+- titlecase pipe is used in the ProductComponent
+- currency pipes are used in the ProductComponent, CartItemComponent, CartComponent
+
+### Useful links
+-[homework](homework/HomeTask_4.txt)
+
 <a name="1.3.0"></a>
 ## 1.3.0 (2018-03-29)
 
