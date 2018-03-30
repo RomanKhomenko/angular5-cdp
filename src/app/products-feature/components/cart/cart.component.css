@@ -1,0 +1,13 @@
+:host-context .sorting-group button { 
+    border: none;
+    font-size: 12px;
+    text-decoration: underline;
+    background: transparent;
+    box-shadow: none;
+    color: #337ab7;
+}
+
+:host-context .sorting-group .btn.active { 
+    font-weight: bolder;
+    color: black;
+}

@@ -11,12 +11,20 @@ import { ProductItem } from '../../models/product-item.model';
 })
 
 export class CartComponent {
+  productMap: any = {
+    'name': 'Product name',
+    'price': 'Product price',
+    'clickedCount': 'Quantity'
+  };
+  orderMap = {
+    key: 'name',
+    direction: true
+  };
+
   @ViewChildren('cartItem')
   cartItems: QueryList<CartComponent>;
 
-  products: ProductItem[] = [];
-
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService) {  }
 
   fromProductChild(product: ProductItem) {
     this.cartService.remove(product);
@@ -24,6 +32,21 @@ export class CartComponent {
 
   removeAll() {
     this.cartService.removeAll();
+  }
+
+  getKeys() {
+    return Object.keys(this.productMap);
+  }
+
+  setOrdering(event) {
+    const key = event.srcElement.value;
+
+    if (this.orderMap.key === key) {
+      this.orderMap.direction = !this.orderMap.direction;
+    } else {
+      this.orderMap.key = key;
+      this.orderMap.direction = true;
+    }
   }
 
   getTotalPrice() {

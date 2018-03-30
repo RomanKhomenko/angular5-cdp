@@ -18,14 +18,14 @@
     <tr>
       <td>
         <p class="list-group-item-heading">
-          <a>{{product.name}}</a>
+          <a>{{product.name | uppercase}}</a>
         </p>
         <p class="list-group-item-text" [ngStyle]="setStyles()">
             {{product.description}}
         </p>
       </td>
       <td>
-        <input type="number" class="form-control" min="0" [(ngModel)]="product.clickedCount">
+        <input type="number" class="form-control" min="0" [(ngModel)]="product.clickedCount" (ngModelChange)="onChange($event)">
         <small [ngStyle]="setStyles()">piece</small>
       </td>
       <td [style.font-weight]="'bold'">

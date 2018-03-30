@@ -1,10 +1,10 @@
 <div class="clearfix">
   <div class="pull-left">
       <p class="list-group-item-heading">
-        Name: <a>{{product.name}}</a>
+       <a>{{product.name | uppercase}}</a>
       </p>
       <p class="list-group-item-text">
-        Description: {{product.description}}
+        {{product.description | titlecase }}
       </p>
       <p class="list-group-item-bottom">
         <span class="bold">Price: {{product.price | currency}};</span>&nbsp;&nbsp;

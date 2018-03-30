@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ProductsService } from '../../services/products/products.service';
 import { ProductCommunicationService } from '../../services/communication/product-communication.service';
@@ -7,7 +7,8 @@ import { ProductItem } from '../../models/product-item.model';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ProductListComponent implements OnInit {

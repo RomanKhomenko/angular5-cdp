@@ -11,14 +11,24 @@
   <div class="panel-body">
     <span *ngIf="cartService.products.length === 0; else cartElse">There are no items</span>
     <ng-template #cartElse>
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let product of cartService.products">
-              <app-cart-item   
-                [product]="product"
-                (remove)="fromProductChild($event)"
-              ></app-cart-item>
-            </li>
-          </ul>
+      <div class="text-right">
+        sorting by:
+        <div class="btn-group sorting-group" role="group" (click)="setOrdering($event)">
+          <button type="button" class="btn"
+              *ngFor="let key of getKeys()"
+              [class.active]="orderMap.key === key"
+              value='{{key}}'>{{key | i18nSelect: productMap}}
+          </button>
+        </div>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let product of (cartService.products | orderBy: orderMap.key: orderMap.direction)">
+          <app-cart-item   
+            [product]="product"
+            (remove)="fromProductChild($event)"
+          ></app-cart-item>
+        </li>
+      </ul>
     </ng-template>    
   </div>
   <div class="panel-footer text-right">
