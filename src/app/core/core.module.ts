@@ -13,13 +13,17 @@ import {
   GeneratorFactory,
   GeneratorService
 } from './services/index';
+import { NotFound404Component } from './components/not-found404/not-found404.component';
+import { RouterModule } from '@angular/router';
+
 
 const constantsInst = new ConstantsService();
 
 @NgModule({
   imports: [
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent
@@ -34,7 +38,8 @@ const constantsInst = new ConstantsService();
     { provide: GENERATOR, useFactory: GeneratorFactory(10), deps: [GeneratorService] },
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    NotFound404Component
   ]
 })
 export class CoreModule { }

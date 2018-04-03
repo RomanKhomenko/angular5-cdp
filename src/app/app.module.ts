@@ -4,22 +4,28 @@ import { NgModule  } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ProductsFeatureModule } from './products-feature/products-feature.module';
-import { DemoComponent } from './demo-task-3/components/demo/demo.component';
-import { HostClickDirective } from './demo-task-3/derictives/hostclick.directive';
+import { AppRoutingModule } from './app-routing.module';
+import { Router } from '@angular/router';
+import { AboutComponent } from './core/components/about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent,
-    HostClickDirective,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     CoreModule,
-    ProductsFeatureModule
+    ProductsFeatureModule,
+
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: []
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
+}

@@ -11,12 +11,15 @@ import { ProductsService } from './services/products/products.service';
 import { CartService } from './services/cart/cart.service';
 import { ProductCommunicationService } from './services/communication/product-communication.service';
 import { SharedModule } from '../shared/modules/shared.module';
+import { ProductFeatureRoutingModule } from './products-feature.routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+
+    ProductFeatureRoutingModule
   ],
   declarations: [
     CartComponent,
@@ -32,6 +35,8 @@ import { SharedModule } from '../shared/modules/shared.module';
   exports: [
     ProductListComponent,
     CartComponent,
+
+    ProductFeatureRoutingModule
   ]
 })
 export class ProductsFeatureModule { }
