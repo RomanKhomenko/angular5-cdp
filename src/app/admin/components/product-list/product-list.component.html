@@ -1,0 +1,19 @@
+<div>
+  <button
+    class="btn btn-primary"
+    [routerLink]="['add']">
+    New Task
+  </button>
+  <br><br>
+
+  <ul class="list-group">
+      <li class="list-group-item" *ngFor="let product of products$ | async as list">
+        {{product.name}}
+        <a
+          [routerLink]="['edit/' + product.id]"
+          class="btn btn-primary">
+          Edit
+      </a>
+      </li>
+    </ul>
+</div>

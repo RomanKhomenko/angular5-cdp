@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ProductsService } from '../../services/products/products.service';
-import { ProductCommunicationService } from '../../services/communication/product-communication.service';
 import { ProductItem } from '../../models/product-item.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +18,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     public productService: ProductsService,
-    private communicationService: ProductCommunicationService
+    private route: ActivatedRoute,
+    private router: Router
   ) {  }
 
   ngOnInit(): void {
@@ -32,5 +33,10 @@ export class ProductListComponent implements OnInit {
 
   move(product: ProductItem) {
     this.productService.moveToCart(product);
+  }
+
+  navigate(product: ProductItem) {
+    const link = ['details', product.id];
+    this.router.navigate(link, {relativeTo: this.route });
   }
 }

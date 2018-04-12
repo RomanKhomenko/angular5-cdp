@@ -5,9 +5,12 @@ import { NotFound404Component } from './core/components/not-found404/not-found40
 import { AboutComponent } from './core/components/about/about.component';
 import { ProductComponent } from './products-feature/components/product-list/product/product.component';
 import { ProductListComponent } from './products-feature/components/product-list/product-list.component';
+import { LoginComponent } from './core/components/login/login.component';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
+  { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule' },
+  { path: 'login', component: LoginComponent },
   { path: '', pathMatch: 'full', redirectTo: '/' },
   { path: '**', component: NotFound404Component }
 ];

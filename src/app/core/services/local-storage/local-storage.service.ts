@@ -8,21 +8,23 @@ export class LocalStorageService {
     this.isSuported = typeof window['localStorage'] !== 'undefined' && window['localStorage'] != null;
   }
 
-  setItem() {
+  setItem(key: any, value: any) {
     if (this.isSuported) {
-      localStorage.setItem('', '');
+      localStorage.setItem(key, value);
     }
   }
 
-  getItem() {
+  getItem(key: any): any {
     if (this.isSuported) {
-      localStorage.getItem('');
+      return localStorage.getItem(key);
     }
+
+    return '';
   }
 
-  removeItem() {
+  removeItem(key: any) {
     if (this.isSuported) {
-      localStorage.removeItem('');
+      localStorage.removeItem(key);
     }
   }
 }

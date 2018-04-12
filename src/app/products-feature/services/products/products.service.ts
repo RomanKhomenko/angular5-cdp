@@ -1,36 +1,42 @@
 import { Injectable } from '@angular/core';
 
-import * as _ from 'lodash';
-
 import { ProductsHttpService } from '../../../core/services/index';
-import { Product, ProductInterface } from '../../../core/models';
-import { ProductCommunicationService } from '../communication/product-communication.service';
+import { Product } from '../../../core/models';
 import { ProductItem } from '../../models/product-item.model';
+import { CartService } from '../cart/cart.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     private productsHttpService: ProductsHttpService,
-    private productCommunicationService: ProductCommunicationService
+    private cartService: CartService
   ) { }
 
   getProducts(): Promise<ProductItem[]> {
-    return new Promise<ProductItem[]>((resolve, reject) => {
-      this.productsHttpService.get()
-        .then(
-          (resp) => resolve(resp.map(this.mapTo)),
-          (error) => reject(new ProductItem[0]),
-        );
-    });
+    return this.productsHttpService.get()
+      .then(response => response.map(this.mapTo))
+      .catch(response => Promise.resolve(Product[0]));
+  }
+
+  getById(id: number): Promise<ProductItem> {
+    return this.productsHttpService.getById(id)
+      .then(response => this.mapTo(response))
+      .catch(response => Promise.resolve<ProductItem>(null));
+  }
+
+  getComments(id: number): Promise<string[]> {
+    return this.productsHttpService.getById(id)
+      .then(response => response.comments)
+      .catch(response => Promise.resolve<string[]>([]));
   }
 
   moveToCart(product: ProductItem) {
-    this.productCommunicationService.notify({...product});
+    this.cartService.addToCart({...product});
   }
 
-  private mapTo(productDto: ProductInterface): ProductItem {
+  private mapTo(productDto: Product): ProductItem {
     return new ProductItem(
-      productDto.id,
+      +productDto.id,
       productDto.name,
       productDto.description,
       productDto.price,

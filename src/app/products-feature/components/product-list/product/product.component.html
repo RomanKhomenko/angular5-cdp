@@ -1,22 +1,24 @@
-<div class="clearfix">
-  <div class="pull-left">
-      <p class="list-group-item-heading">
-       <a>{{product.name | uppercase}}</a>
-      </p>
-      <p class="list-group-item-text">
-        {{product.description | titlecase }}
-      </p>
-      <p class="list-group-item-bottom">
-        <span class="bold">Price: {{product.price | currency}};</span>&nbsp;&nbsp;
-        <span class="red">(only {{product.count}} pieces available)</span>        
-      </p>
+<div class="card">
+  <div class="card-header">
+    <a (click)="onView($event)">{{product.name | uppercase}}</a>
   </div>
-  <div class="pull-right">
-    <div class="input-group">
-      <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" (click)="onBuy($event)" #buyButton>Add to Cart</button>
+  <div class="card-body">
+    <p class="card-text">
+      <span class="d-block">
+          {{product.description | titlecase }}
       </span>
-      <input type="number" class="form-control" min="0" [max]="product.count" [(ngModel)]="product.clickedCount">
+      <span class="d-block">
+          <span class="font-weight-bold">Price: {{product.price | currency}};</span>&nbsp;&nbsp;
+          <span class="text-danger">(only {{product.count}} pieces available)</span>
+      </span>
+    </p>
+  </div>
+  <div class="card-footer">
+    <div class="input-group mb-3">
+      <input type="number" class="form-control user-cliled-count" min="0" [max]="product.count" [(ngModel)]="product.clickedCount" [disabled]="isDisabled()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="onBuy($event)" #buyButton>Add to Cart</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,9 @@
+<h2 *ngIf="isLoggedIn">Logged as {{user() | i18nSelect: selectMapping}}</h2>
+<h2 *ngIf="!isLoggedIn">Login</h2>
+<p>
+  <select class="user-type" #userType *ngIf="!isLoggedIn">
+    <option *ngFor="let key of getSelectKeys()" value="{{key}}">{{key | i18nSelect: selectMapping}}</option>
+  </select>
+  <button class="btn btn-primary" (click)="login()"  *ngIf="!isLoggedIn">Login</button>
+  <button class="btn btn-primary" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+</p>

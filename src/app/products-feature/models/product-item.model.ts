@@ -1,10 +1,8 @@
-import { ProductInterface } from '../../core/models';
-
-export class ProductItem implements ProductInterface {
+export class ProductItem {
     public clickedCount: number;
 
     constructor(
-        public id: string,
+        public id: number,
         public name: string,
         public description: string = '',
         public price: number,

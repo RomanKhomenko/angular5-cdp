@@ -1,6 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
-import { ProductCommunicationService } from '../../services/communication/product-communication.service';
 import { CartService } from '../../services/cart/cart.service';
 import { ProductItem } from '../../models/product-item.model';
 

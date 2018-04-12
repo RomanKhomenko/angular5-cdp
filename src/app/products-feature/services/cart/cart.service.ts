@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import * as _ from 'lodash';
 
-import { ProductCommunicationService } from '../communication/product-communication.service';
 import { ProductItem } from '../../models/product-item.model';
 
 @Injectable()
-export class CartService {
+export class CartService implements OnInit {
   products: ProductItem[] = [];
 
-  constructor(private productCommunicationService: ProductCommunicationService) {
+  ngOnInit(): void {
     this.reset();
-    this.subscribtion();
   }
 
   removeAll() {
@@ -26,15 +24,13 @@ export class CartService {
     return this.products.find((item) => item.name === productName);
   }
 
-  private subscribtion(): void {
-    this.productCommunicationService.channel$.subscribe((product) => {
-      const existed = this.getByName(product.name);
-      if (existed) {
-        existed.clickedCount += product.clickedCount;
-      } else {
-        this.products.push(product);
-      }
-    });
+  addToCart(product: ProductItem) {
+    const existed = this.getByName(product.name);
+    if (existed) {
+      existed.clickedCount += product.clickedCount;
+    } else {
+      this.products.push(product);
+    }
   }
 
   private reset(): void {

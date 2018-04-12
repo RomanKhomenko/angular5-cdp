@@ -1,19 +1,16 @@
 <ng-container *ngIf="products | async as result">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <ng-content></ng-content>
-      <h5>Number of available products: <span class="badge">{{result.length}}</span></h5>
+  <div class="card">
+    <div class="card-header">
+      Number of available products: <span class="badge badge-secondary">{{result.length}}</span>
     </div>
-    <div class="panel-body">
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let product of result">
-          <app-product          
-            [product]="product"
-            (buy)="move($event)"
-          ></app-product>
-        </li>
-      </ul>
-    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let product of result">
+        <app-product
+          [product]="product"
+          (buy)="move($event)"
+          (view)="navigate($event)"
+        ></app-product>
+      </li>
+    </ul>
   </div>
 </ng-container>
-<div></div>

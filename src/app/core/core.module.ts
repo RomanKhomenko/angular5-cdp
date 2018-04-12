@@ -15,6 +15,8 @@ import {
 } from './services/index';
 import { NotFound404Component } from './components/not-found404/not-found404.component';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth/auth.service';
 
 
 const constantsInst = new ConstantsService();
@@ -33,13 +35,15 @@ const constantsInst = new ConstantsService();
     HttpClient,
     LocalStorageService,
     GeneratorService,
+    AuthService,
     { provide: ConstantsService, useValue: constantsInst },
     { provide: CONFIG, useClass: ConfigOptionsService },
     { provide: GENERATOR, useFactory: GeneratorFactory(10), deps: [GeneratorService] },
   ],
   declarations: [
     HeaderComponent,
-    NotFound404Component
+    NotFound404Component,
+    LoginComponent
   ]
 })
 export class CoreModule { }

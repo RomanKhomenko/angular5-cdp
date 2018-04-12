@@ -1,15 +1,10 @@
 import { Guid } from '../../shared/models/guid';
-import { ProductInterface } from './product.interface';
 
-export class Product implements ProductInterface {
-    public id: string;
-
-    constructor(
-        public name: string,
-        public description: string = '',
-        public price: number,
-        public count: number,
-    ) {
-        this.id = Guid.newGuid();
-    }
+export class Product {
+    public id: number;
+    public name: string;
+    public description = '';
+    public price: number;
+    public count: number;
+    public comments: string[];
 }

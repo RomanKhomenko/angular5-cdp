@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injector, ReflectiveInjector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,9 +9,10 @@ import { ProductComponent } from './components/product-list/product/product.comp
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsService } from './services/products/products.service';
 import { CartService } from './services/cart/cart.service';
-import { ProductCommunicationService } from './services/communication/product-communication.service';
 import { SharedModule } from '../shared/modules/shared.module';
-import { ProductFeatureRoutingModule } from './products-feature.routing.module';
+import { ProductFeatureRoutingModule, routerComponents } from './products-feature.routing.module';
+import { ProductDetailsComponent } from './components/product-list/product-details/product-details.component';
+import { ProductResolveGuard } from './guards/product-resolve.guard';
 
 @NgModule({
   imports: [
@@ -22,15 +23,14 @@ import { ProductFeatureRoutingModule } from './products-feature.routing.module';
     ProductFeatureRoutingModule
   ],
   declarations: [
-    CartComponent,
     CartItemComponent,
     ProductComponent,
-    ProductListComponent
+    routerComponents
   ],
   providers: [
+    ProductResolveGuard,
     ProductsService,
-    CartService,
-    ProductCommunicationService
+    CartService
   ],
   exports: [
     ProductListComponent,

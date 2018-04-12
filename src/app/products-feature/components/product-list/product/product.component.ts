@@ -10,7 +10,9 @@ import { ProductItem } from '../../../models/product-item.model';
 
 export class ProductComponent implements AfterViewInit {
   @Input() product: ProductItem;
+
   @Output() buy: EventEmitter<ProductItem> = new EventEmitter();
+  @Output() view: EventEmitter<ProductItem> = new EventEmitter();
 
   @ViewChild('buyButton')
   buttonElement: ElementRef;
@@ -26,6 +28,10 @@ export class ProductComponent implements AfterViewInit {
   onBuy($event) {
     console.log(`Click ${this.product.name}`);
     this.buy.emit(this.product);
+  }
+
+  onView($event) {
+    this.view.emit(this.product);
   }
 
   isDisabled(): boolean {
