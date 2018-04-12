@@ -1,3 +1,28 @@
+<a name="1.5.0"></a>
+## 1.5.0 (2018-04-12)
+
+### Added
+- Nav bar with
+- Using routing for catalog, cart, about, admin pages
+- Comments show in the secondary routing outlet named "commentsPlace". Located on product details (click on the product name)
+- Admin lazy module
+- Auth guard
+- Auth service. Store data to localStoarage with LocalStorageService
+
+### Changed
+- Product service. Now has cart service as input
+
+### Removed
+- Product communication service
+
+### Notes
+- CanDeactive guard planed reloeased in the next task because of Update/Create/Delete functionality were not implemented due to absent server. (Use HttpClient to loads product)
+- CanLoad guard wasa not used because of AuthGuard not core but in the AdminModule.
+
+### Useful links
+-[homework](homework/HomeTask_5.txt)
+
+
 <a name="1.4.0"></a>
 ## 1.4.0 (2018-03-29)
 
