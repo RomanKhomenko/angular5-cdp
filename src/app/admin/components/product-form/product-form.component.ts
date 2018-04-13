@@ -35,8 +35,8 @@ export class ProductFormComponent implements OnInit {
 
     const method = product.id > 0 ? 'updateProduct' : 'createProduct';
     this.productService[method](product)
-      .then((id: number) => {
-        id > 0
+      .then((newProduct: Product) => {
+        newProduct.id > 0
           ? this.router.navigate(['products'])
           : this.goBack();
       });

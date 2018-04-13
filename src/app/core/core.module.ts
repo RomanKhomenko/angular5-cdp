@@ -17,6 +17,7 @@ import { NotFound404Component } from './components/not-found404/not-found404.com
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth/auth.service';
+import { CommentsHttpService } from './services/products-http/comments-http.service';
 
 
 const constantsInst = new ConstantsService();
@@ -32,6 +33,7 @@ const constantsInst = new ConstantsService();
   ],
   providers: [
     ProductsHttpService,
+    CommentsHttpService,
     HttpClient,
     LocalStorageService,
     GeneratorService,

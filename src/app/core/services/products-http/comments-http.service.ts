@@ -1,48 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Product } from '../../models/index';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
 
+import { Comment } from '../../models';
+
 @Injectable()
-export class ProductsHttpService {
-  private products: Product[];
-  private url = 'http://localhost:3000/products';
+export class CommentsHttpService {
+  private url = 'http://localhost:3000/comments?productId=';
 
   constructor(private http: HttpClient) { }
 
-  get(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url)
+  get(productId: Number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.url + productId.toString())
       .pipe(
         (response) => response,
         catchError(this.handleError)
       );
-  }
-
-  getById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.url}/${id}`)
-      .pipe(
-        (response) => response,
-        catchError(this.handleError)
-      );
-  }
-
-  createProduct (product: Product): Promise<Product> {
-    const productDto = {...product};
-    productDto.id = Math.floor(Math.random() * 90 + 10);
-
-    return this.http.post<Product>(this.url, productDto)
-      .toPromise();
-  }
-
-  updateProduct (product: Product) {
-    const productDto = {...product};
-
-    return this.http.put<Product>(`${this.url}/${productDto.id}`, productDto)
-      .toPromise()
-      .catch(this.handleError);
   }
 
   private handleError(err: HttpErrorResponse) {

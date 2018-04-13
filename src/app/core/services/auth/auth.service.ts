@@ -6,11 +6,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class AuthService {
-  public isLoggedIn$ = new BehaviorSubject(false);
+  public isLoggedIn$;
 
   constructor(
     private localStorage: LocalStorageService
-  ) { }
+  ) {
+    this.isLoggedIn$ = new BehaviorSubject(this.localStorage.getItem('user') !== null);
+  }
 
   login (value: string): Promise<boolean> {
     this.localStorage.setItem('user', value);
