@@ -7,6 +7,7 @@ import { ProductsFeatureModule } from './products-feature/products-feature.modul
 import { AppRoutingModule } from './app-routing.module';
 import { Router } from '@angular/router';
 import { AboutComponent } from './core/components/about/about.component';
+import { AppSettingsService } from './core/services';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { AboutComponent } from './core/components/about/about.component';
 
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: Window, useValue: window },
+  ],
   bootstrap: [AppComponent],
   schemas: []
 })

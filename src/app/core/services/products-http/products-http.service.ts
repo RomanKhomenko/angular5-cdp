@@ -1,20 +1,23 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Product } from '../../models/index';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
+import { ProductsAPI } from './json-server-config';
 
 @Injectable()
 export class ProductsHttpService {
   private products: Product[];
-  private url = 'http://localhost:3000/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(ProductsAPI) private url
+  ) { }
 
   get(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url)
+    return this.http.get<Product[]>(this.url, { params:  new HttpParams().set('perf', 'true')})
       .pipe(
         (response) => response,
         catchError(this.handleError)
@@ -22,7 +25,7 @@ export class ProductsHttpService {
   }
 
   getById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.url}/${id}`)
+    return this.http.get<Product>(`${this.url}/${id}`, { params:  new HttpParams().set('perf', 'true')})
       .pipe(
         (response) => response,
         catchError(this.handleError)

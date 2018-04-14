@@ -1,20 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
 
 import { Comment } from '../../models';
+import { CommentsAPI } from './json-server-config';
 
 @Injectable()
 export class CommentsHttpService {
-  private url = 'http://localhost:3000/comments?productId=';
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(CommentsAPI) private url
+  ) {
+    this.url = this.url + '?productId=';
+  }
 
   get(productId: Number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url + productId.toString())
+    return this.http.get<Comment[]>(this.url + productId.toString(), { params:  new HttpParams().set('perf1', 'true')})
       .pipe(
         (response) => response,
         catchError(this.handleError)

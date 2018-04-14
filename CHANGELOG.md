@@ -1,26 +1,23 @@
-<a name="1.5.0"></a>
-## 1.5.0 (2018-04-12)
+<a name="1.6.0"></a>
+## 1.6.0 (2018-04-14)
 
 ### Added
-- Nav bar with
-- Using routing for catalog, cart, about, admin pages
-- Comments show in the secondary routing outlet named "commentsPlace". Located on product details (click on the product name)
-- Admin lazy module
-- Auth guard
-- Auth service. Store data to localStoarage with LocalStorageService
+- Comments http service. Works with Obserable
+- AppSettings http service. Works with Obserable
+- TimingInterceptor. Used two different ways to calculate time. Realesed with filter
+- Several Tokens (see notes)
+- Json server package.
 
 ### Changed
-- Product service. Now has cart service as input
-
-### Removed
-- Product communication service
+- Product  service. Works with Obserable
 
 ### Notes
-- CanDeactive guard planed reloeased in the next task because of Update/Create/Delete functionality were not implemented due to absent server. (Use HttpClient to loads product)
-- CanLoad guard wasa not used because of AuthGuard not core but in the AdminModule.
+- Product service works with promises.
+- Next step to move json server urls to AppSettingsService
 
 ### Useful links
--[homework](homework/HomeTask_5.txt)
+-[homework](homework/HomeTask_6.txt)
+
 
 
 <a name="1.4.0"></a>

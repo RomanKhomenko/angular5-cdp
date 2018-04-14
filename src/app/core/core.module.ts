@@ -1,6 +1,6 @@
 import { NgModule, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HeaderComponent } from './components/header/header.component';
 import {
@@ -11,14 +11,16 @@ import {
   CONFIG,
   GENERATOR,
   GeneratorFactory,
-  GeneratorService
+  GeneratorService,
+  AppSettingsService,
+  CommentsHttpService,
+  AuthService
 } from './services/index';
 import { NotFound404Component } from './components/not-found404/not-found404.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { AuthService } from './services/auth/auth.service';
-import { CommentsHttpService } from './services/products-http/comments-http.service';
-
+import { TimingInterceptor } from './interceptors/timing-iterceptor';
+import { ProductsAPIProvider, CommentsAPIProvider } from './services/products-http/json-server-config';
 
 const constantsInst = new ConstantsService();
 
@@ -41,6 +43,10 @@ const constantsInst = new ConstantsService();
     { provide: ConstantsService, useValue: constantsInst },
     { provide: CONFIG, useClass: ConfigOptionsService },
     { provide: GENERATOR, useFactory: GeneratorFactory(10), deps: [GeneratorService] },
+    { provide: HTTP_INTERCEPTORS, useClass: TimingInterceptor, multi: true },
+    ProductsAPIProvider,
+    CommentsAPIProvider,
+    AppSettingsService
   ],
   declarations: [
     HeaderComponent,
