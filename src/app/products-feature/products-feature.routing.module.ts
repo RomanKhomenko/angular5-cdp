@@ -6,6 +6,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductDetailsComponent } from './components/product-list/product-details/product-details.component';
 import { ProductResolveGuard } from './guards/product-resolve.guard';
 import { ProductCommentsComponent } from './components/product-list/product-details/comment/product-comments.component';
+import * as Guards from './guards';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },
@@ -13,6 +14,7 @@ const routes: Routes = [
     path: 'products',
     pathMatch: 'full',
     component: ProductListComponent,
+    canActivate: [Guards.ProductsStatePreloadingGuard],
   },
   {
     path: 'products/details/:productId',
@@ -20,6 +22,7 @@ const routes: Routes = [
     resolve: {
       product: ProductResolveGuard
     },
+    canActivate: [Guards.ProductsStatePreloadingGuard],
     children: [
       { path: 'comments', component: ProductCommentsComponent, outlet: 'product-comments' },
     ]

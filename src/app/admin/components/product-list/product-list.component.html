@@ -5,9 +5,9 @@
     New Task
   </button>
   <br><br>
-
-  <ul class="list-group">
-      <li class="list-group-item" *ngFor="let product of products$ | async as list">
+  <ng-container *ngIf="products$ | async as result">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let product of result">
         {{product.name}}
         <a
           [routerLink]="['edit/' + product.id]"
@@ -16,4 +16,5 @@
       </a>
       </li>
     </ul>
+  </ng-container>
 </div>

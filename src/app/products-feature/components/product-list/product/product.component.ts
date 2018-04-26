@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, Renderer2, ElementRef, OnInit } from '@angular/core';
 
 import { ProductItem } from '../../../models/product-item.model';
 
@@ -8,7 +8,7 @@ import { ProductItem } from '../../../models/product-item.model';
   styleUrls: ['./product.component.css']
 })
 
-export class ProductComponent implements AfterViewInit {
+export class ProductComponent implements AfterViewInit, OnInit {
   @Input() product: ProductItem;
 
   @Output() buy: EventEmitter<ProductItem> = new EventEmitter();
@@ -19,11 +19,15 @@ export class ProductComponent implements AfterViewInit {
 
   constructor(private renderer: Renderer2) { }
 
+  ngOnInit(): void {
+    this.product.clickedCount = this.product.clickedCount || 1;
+  }
+
   ngAfterViewInit() {
     if (this.product.count === 0) {
       this.renderer.setAttribute(this.buttonElement.nativeElement, 'disabled', 'disabled');
     }
- }
+  }
 
   onBuy($event) {
     console.log(`Click ${this.product.name}`);

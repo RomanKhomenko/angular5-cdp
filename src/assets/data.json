@@ -36,6 +36,14 @@
       "price": 50,
       "count": 0,
       "clickedCount": 1
+    },
+    {
+      "id": 52,
+      "name": "Product 10",
+      "description": "",
+      "price": 0,
+      "count": 0,
+      "clickedCount": 1
     }
   ],
   "comments": [

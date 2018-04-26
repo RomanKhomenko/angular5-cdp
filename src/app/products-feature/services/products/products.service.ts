@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 
+import { Store, select } from '@ngrx/store';
+
 import { ProductsHttpService } from '../../../core/services/index';
 import { Product } from '../../../core/models';
 import { ProductItem } from '../../models/product-item.model';
 import { CartService } from '../cart/cart.service';
 import { concatMap, catchError } from 'rxjs/operators';
 import { CommentsHttpService } from '../../../core/services/products-http/comments-http.service';
+import { AppState, ProductsState, getProductsData } from '../../../core/+store';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProductsService {
   constructor(
     private productsHttpService: ProductsHttpService,
+    private store: Store<AppState>,
     private commentsService: CommentsHttpService,
     private cartService: CartService
   ) { }
 
-  getProducts(): Promise<ProductItem[]> {
-    return this.productsHttpService.get()
-      .toPromise()
-      .then(response => response.map(this.mapTo))
-      .catch(response => Promise.resolve(Product[0]));
+  getProducts(): Store<ReadonlyArray<Product>> {
+    return this.store.select(getProductsData);
   }
 
   getById(id: number): Promise<ProductItem> {

@@ -2,6 +2,8 @@ import { NgModule, Injector, ReflectiveInjector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { StoreModule } from '@ngrx/store';
+
 import { ProductsHttpService } from '../core/services/products-http/products-http.service';
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
@@ -13,14 +15,20 @@ import { SharedModule } from '../shared/modules/shared.module';
 import { ProductFeatureRoutingModule, routerComponents } from './products-feature.routing.module';
 import { ProductDetailsComponent } from './components/product-list/product-details/product-details.component';
 import { ProductResolveGuard } from './guards/product-resolve.guard';
+import { reducer } from '../core/+store/products/products.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from '../core/+store/products/products.effects';
+import { ProductsStatePreloadingGuard } from './guards';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
+    StoreModule.forFeature('products', reducer),
+    EffectsModule.forFeature([ProductsEffects]),
 
-    ProductFeatureRoutingModule
+    ProductFeatureRoutingModule,
   ],
   declarations: [
     CartItemComponent,
@@ -30,7 +38,8 @@ import { ProductResolveGuard } from './guards/product-resolve.guard';
   providers: [
     ProductResolveGuard,
     ProductsService,
-    CartService
+    CartService,
+    ProductsStatePreloadingGuard
   ],
   exports: [
     ProductListComponent,

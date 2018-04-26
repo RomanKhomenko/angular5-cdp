@@ -4,24 +4,40 @@ import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 // rxjs
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { map, delay, tap, catchError, switchMap, take } from 'rxjs/operators';
 
-import { map, delay, tap, catchError } from 'rxjs/operators';
+// ngrx
+import { Store, select } from '@ngrx/store';
+
 import { ProductsService } from '../services/products/products.service';
 import { ProductItem } from '../models/product-item.model';
+import { AppState, getSelectedProductById, SetProduct } from '../../core/+store';
+import { Product } from '../../core/models';
 
 @Injectable()
-export class ProductResolveGuard implements Resolve<ProductItem> {
+export class ProductResolveGuard implements Resolve<Product> {
   constructor(
     private productService: ProductsService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>,
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Promise<ProductItem | null> {
-    if (!route.paramMap.has('productId')) {
-      Promise.reject('error');
-    }
-
-    const id = +route.paramMap.get('productId');
-    return this.productService.getById(id);
+  resolve(): Observable<Product> | null {
+    return this.store.pipe(
+      select((getSelectedProductById)),
+      switchMap(product => {
+        if (product) {
+          return of(product);
+        } else {
+          this.router.navigate(['/products']);
+          return of(null);
+        }
+      }),
+      take(1),
+      catchError(() => {
+        this.router.navigate(['/products']);
+        return of(null);
+      })
+    );
   }
 }

@@ -1,3 +1,24 @@
+<a name="1.7.0"></a>
+## 1.7.0 (2018-04-26)
+
+### Added
+- NgRx library
+- Products state, selectors(feature and state), actions, effects, reducer
+- Router state, selectors, action, effect, reducer
+- Used NgRx entity library for products
+- Product preload guard
+
+
+### Changed
+- Admin product list component
+- Product list component
+- Product resolve guard
+- Product details component
+
+### Useful links
+-[homework](homework/HomeTask_7.txt)
+
+
 <a name="1.6.0"></a>
 ## 1.6.0 (2018-04-14)
 
@@ -17,7 +38,6 @@
 
 ### Useful links
 -[homework](homework/HomeTask_6.txt)
-
 
 
 <a name="1.4.0"></a>

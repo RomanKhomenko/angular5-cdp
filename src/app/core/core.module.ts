@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { TimingInterceptor } from './interceptors/timing-iterceptor';
 import { ProductsAPIProvider, CommentsAPIProvider } from './services/products-http/json-server-config';
+import { CoreStoreModule } from './+store/core-store.module';
 
 const constantsInst = new ConstantsService();
 
@@ -28,6 +29,7 @@ const constantsInst = new ConstantsService();
   imports: [
     HttpClientModule,
     CommonModule,
+    CoreStoreModule,
     RouterModule
   ],
   exports: [

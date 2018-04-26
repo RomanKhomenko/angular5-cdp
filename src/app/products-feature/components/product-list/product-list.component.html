@@ -1,4 +1,4 @@
-<ng-container *ngIf="products | async as result">
+<ng-container *ngIf="products$ | async as result">
   <div class="card">
     <div class="card-header">
       Number of available products: <span class="badge badge-secondary">{{result.length}}</span>
