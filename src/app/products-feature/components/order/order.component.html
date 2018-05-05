@@ -1,0 +1,89 @@
+<form [formGroup]="proccedOrderForm">
+  <div formGroupName="emailGroup" [ngClass]="{'has-error': proccedOrderForm.get('emailGroup').errors}">
+    <div class="form-group" [ngClass]="{'has-error': emailMessage}">
+      <label for="exampleInputEmail1">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        asyncEmailValidator
+        formControlName="email">
+      <small id="emailHelp" class="form-text text-muted">We'll send an order confirmation to this address</small>
+      <span class="help-block" *ngIf="emailMessage2">
+          {{emailMessage}}
+        </span>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': emailMessage2}">
+      <label for="exampleInputEmail2">Confirm email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail2"
+        formControlName="email2">
+        <span class="help-block" *ngIf="emailMessage2">
+          {{emailMessage2}}
+        </span>
+    </div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': (proccedOrderForm.get('contatName').touched || proccedOrderForm.get('contatName').dirty) && !proccedOrderForm.get('contatName').valid }">
+    <label for="exampleInputPassword1">Contact name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleInputPassword1"
+      placeholder="Contact name"
+      formControlName="contatName">
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': (proccedOrderForm.get('region').touched || proccedOrderForm.get('region').dirty) && !proccedOrderForm.get('region').valid }">
+    <label for="exampleSelectRegion1">Country/Region</label>
+    <select
+        #region
+        class="form-control"
+        id="exampleSelectRegion1"
+        formControlName="region"
+        (change)="onChangeRegion($event, region.value)">
+      <option value="">Select</option>
+      <option value="Belarus">Belarus</option>
+    </select>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': (proccedOrderForm.get('city').touched || proccedOrderForm.get('city').dirty) && !proccedOrderForm.get('city').valid }">
+    <label for="exampleInputCity1">City</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleInputCity1"
+      formControlName="city">
+      <span class="help-block" *ngIf="(proccedOrderForm.get('city').touched || proccedOrderForm.get('city').dirty) && proccedOrderForm.get('city').errors">
+        <span *ngIf="proccedOrderForm.get('city').errors.required">
+          Please enter city.
+        </span>
+      </span>
+  </div>
+  <div formArrayName="mobiles" *ngFor="let mobile of mobiles.controls; let i = index">
+      <div [formGroupName]="i">
+          <div class="form-group">
+              <label for="{{'exampleInputMobile' + i}}">{{'Mobile' + (i === 0 ? '': i+1)}}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="{{'exampleInputMobile' + i}}"
+                placeholder="Mobile"
+                formControlName="mobile">
+            </div>
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-2">
+      <button class="btn btn-primary"
+              type="button"
+              (click)="addMobile()">
+        Add Another Mobile
+      </button>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!proccedOrderForm.valid">Submit</button>
+</form>
+<br>Dirty: {{ proccedOrderForm.dirty }}
+<br>Touched: {{ proccedOrderForm.touched }}
+<br>Valid: {{ proccedOrderForm.valid }}
+<br>Value: {{ proccedOrderForm.value | json }}

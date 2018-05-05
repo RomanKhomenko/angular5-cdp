@@ -1,7 +1,12 @@
 import { Component, Input, EventEmitter, Output, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
 import { CartService } from '../../services/cart/cart.service';
 import { ProductItem } from '../../models/product-item.model';
+
+import { AppState } from '../../../core/+store';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +28,10 @@ export class CartComponent {
   @ViewChildren('cartItem')
   cartItems: QueryList<CartComponent>;
 
-  constructor(public cartService: CartService) {  }
+  constructor(
+    public cartService: CartService,
+    private store: Store<AppState>
+  ) {  }
 
   fromProductChild(product: ProductItem) {
     this.cartService.remove(product);
@@ -54,5 +62,12 @@ export class CartComponent {
     let total = 0;
     this.cartService.products.forEach(product => total += product.price * product.clickedCount);
     return total;
+  }
+
+  proceed() {
+    const payload = {
+      path: ['proceed-order']
+    };
+    this.store.dispatch(new RouterActions.Go(payload));
   }
 }

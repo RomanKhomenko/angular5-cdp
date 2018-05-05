@@ -1,3 +1,17 @@
+<a name="1.8.0"></a>
+## 1.8.0 (2018-05-05)
+
+### Added
+- Reactive form. Go to products -> click "Add to cart" -> Go to Cart -> click "Proceed" button
+- custom email validator based on email validator from FormsModule
+- async email validator based on custom email validator
+- watchValueChanges
+- Form group, form array, form control
+
+### Useful links
+-[homework](homework/HomeTask_8.txt)
+
+
 <a name="1.7.0"></a>
 ## 1.7.0 (2018-04-26)
 

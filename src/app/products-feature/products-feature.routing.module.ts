@@ -7,6 +7,7 @@ import { ProductDetailsComponent } from './components/product-list/product-detai
 import { ProductResolveGuard } from './guards/product-resolve.guard';
 import { ProductCommentsComponent } from './components/product-list/product-details/comment/product-comments.component';
 import * as Guards from './guards';
+import { OrderComponent } from './components/order/order.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'comments', component: ProductCommentsComponent, outlet: 'product-comments' },
     ]
   },
-  { path: 'cart', pathMatch: 'full', component: CartComponent }
+  { path: 'cart', pathMatch: 'full', component: CartComponent },
+  { path: 'proceed-order', pathMatch: 'full', component: OrderComponent }
 ];
 
 @NgModule({
@@ -37,4 +39,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class ProductFeatureRoutingModule { }
-export let routerComponents = [CartComponent, ProductListComponent, ProductCommentsComponent, ProductDetailsComponent];
+export let routerComponents = [OrderComponent, CartComponent, ProductListComponent, ProductCommentsComponent, ProductDetailsComponent];

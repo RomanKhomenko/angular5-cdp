@@ -1,6 +1,6 @@
 import { NgModule, Injector, ReflectiveInjector } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
@@ -19,12 +19,15 @@ import { reducer } from '../core/+store/products/products.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from '../core/+store/products/products.effects';
 import { ProductsStatePreloadingGuard } from './guards';
+import { EmailDirective } from './validators/emaill.directive';
+import { AsyncEmailValidatorDirective } from './validators/async-email-validator.directive';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('products', reducer),
     EffectsModule.forFeature([ProductsEffects]),
 
@@ -33,7 +36,9 @@ import { ProductsStatePreloadingGuard } from './guards';
   declarations: [
     CartItemComponent,
     ProductComponent,
-    routerComponents
+    routerComponents,
+    EmailDirective,
+    AsyncEmailValidatorDirective
   ],
   providers: [
     ProductResolveGuard,
